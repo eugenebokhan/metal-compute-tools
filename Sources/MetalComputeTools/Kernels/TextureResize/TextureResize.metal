@@ -7,10 +7,6 @@ kernel void textureResize(texture2d<float, access::sample> source [[ texture(0) 
     const auto textureSize = ushort2(destination.get_width(),
                                      destination.get_height());
     checkPosition(position, textureSize, deviceSupportsNonuniformThreadgroups);
-    
-    constexpr sampler s(coord::normalized,
-                        address::clamp_to_edge,
-                        filter::linear);
 
     const auto positionF = float2(position);
     const auto textureSizeF = float2(textureSize);
