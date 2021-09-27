@@ -23,6 +23,26 @@ final public class QuantizeDistanceField {
     }
 
     // MARK: - Encode
+    
+    public func callAsFunction(source: MTLTexture,
+                               destination: MTLTexture,
+                               normalizationFactor: Float,
+                               in commandBuffer: MTLCommandBuffer) {
+        self.encode(source: source,
+                    destination: destination,
+                    normalizationFactor: normalizationFactor,
+                    in: commandBuffer)
+    }
+    
+    public func callAsFunction(source: MTLTexture,
+                               destination: MTLTexture,
+                               normalizationFactor: Float,
+                               using encoder: MTLComputeCommandEncoder) {
+        self.encode(source: source,
+                    destination: destination,
+                    normalizationFactor: normalizationFactor,
+                    using: encoder)
+    }
 
     public func encode(source: MTLTexture,
                        destination: MTLTexture,
@@ -55,5 +75,3 @@ final public class QuantizeDistanceField {
 
     public static let functionName = "quantizeDistanceField"
 }
-
-

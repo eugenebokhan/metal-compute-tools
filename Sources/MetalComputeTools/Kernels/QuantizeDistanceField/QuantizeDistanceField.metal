@@ -1,6 +1,6 @@
 #include "../../../MetalComputeToolsSharedTypes/Definitions.h"
 
-kernel void quantizeDistanceField(texture2d<float, access::read> source [[ texture(0) ]],
+kernel void quantizeDistanceField(texture2d<float, access::sample> source [[ texture(0) ]],
                                   texture2d<float, access::write> destination [[ texture(1) ]],
                                   constant float& normalizationFactor [[buffer(0)]],
                                   uint2 position [[thread_position_in_grid]]) {
@@ -9,8 +9,12 @@ kernel void quantizeDistanceField(texture2d<float, access::read> source [[ textu
         destination.get_height()
     };
     checkPosition(position, textureSize, deviceSupportsNonuniformThreadgroups);
+    
+    const float2 positionF = float2(position);
+    const float2 textureSizeF = float2(textureSize);
+    const float2 normalizedPosition = (positionF + 0.5f) / textureSizeF;
 
-    const float distance = source.read(position).r;
+    const float distance = source.sample(s, normalizedPosition);
     const float clampDist = fmax(-normalizationFactor, fmin(distance, normalizationFactor));
     const float scaledDist = clampDist / normalizationFactor;
     const float resultValue = ((scaledDist + 1.0f) / 2.0f);
