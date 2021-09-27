@@ -46,6 +46,7 @@ let package = Package(
                 .process("Kernels/EuclideanDistance/EuclideanDistance.metal"),
                 .process("Kernels/LookUpTable/LookUpTable.metal"),
                 .process("Kernels/MaskGuidedBlur/MaskGuidedBlur.metal"),
+                .process("Kernels/QuantizeDistanceField/QuantizeDistanceField.metal"),
                 .process("Kernels/RGBAToYCbCr/RGBAToYCbCr.metal"),
                 .process("Kernels/StdMeanNormalization/StdMeanNormalization.metal"),
                 .process("Kernels/TextureAddConstant/TextureAddConstant.metal"),
